@@ -339,32 +339,40 @@ src="https://www.facebook.com/tr?id=1251687887065006&ev=PageView&noscript=1"
     document.body.style.overflow = 'auto';
   }
 
-  function sendWhatsApp() {
-    const prato = document.getElementById('prato').value;
-    const nome = document.getElementById('nome').value;
-    const morada = document.getElementById('morada').value;
-    const qtd = document.getElementById('quantidade').value;
-    const obs = document.getElementById('obs').value;
-    
-    if(!nome || !morada) { alert("Por favor, preencha nome e endereço."); return; }
+ function sendWhatsApp() {
 
-    trackEvent("Purchase");
+const prato = document.getElementById('prato').value;
+const nome = document.getElementById('nome').value;
+const morada = document.getElementById('morada').value;
+const qtd = document.getElementById('quantidade').value;
+const obs = document.getElementById('obs').value;
 
-    const msg = `*NOVO PEDIDO* %0A-----------------------%0A*Prato:* ${prato}%0A*Nome:* ${nome}%0A*Entrega:* ${morada}%0A*Qtd:* ${qtd}%0A*Obs:* ${obs}`;
-    const phone = "5511941949178";
-    window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${msg}`, "_blank");
-  }
+if(!nome || !morada){
+alert("Por favor, preencha nome e endereço.");
+return;
+}
 
- function trackEvent(eventName){
+trackEvent("Purchase",{
+name:nome,
+address:morada
+});
+
+const msg = `*NOVO PEDIDO* %0A-----------------------%0A*Prato:* ${prato}%0A*Nome:* ${nome}%0A*Entrega:* ${morada}%0A*Qtd:* ${qtd}%0A*Obs:* ${obs}`;
+
+const phone = "5511941949178";
+
+window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${msg}`, "_blank");
+
+}
+
+function trackEvent(eventName,userData={}){
 
 const eventId = Date.now().toString();
 
-// Pixel browser
 if(typeof fbq !== "undefined"){
 fbq('track', eventName, {}, {eventID: eventId});
 }
 
-// enviar para conversions api
 fetch("/api/track",{
 method:"POST",
 headers:{
@@ -373,7 +381,8 @@ headers:{
 body:JSON.stringify({
 eventName:eventName,
 eventId:eventId,
-url:window.location.href
+url:window.location.href,
+userData:userData
 })
 })
 
