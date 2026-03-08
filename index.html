@@ -26,7 +26,7 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1251687887065006&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
- 
+
   <style>
     .afro-pattern {
       background-image: repeating-linear-gradient(45deg, rgba(184, 134, 11, 0.05) 0px, rgba(184, 134, 11, 0.05) 10px, transparent 10px, transparent 20px);
@@ -40,7 +40,7 @@ src="https://www.facebook.com/tr?id=1251687887065006&ev=PageView&noscript=1"
 
 <nav class="glass-nav sticky top-0 z-40 border-b border-gray-100">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <span class="text-xl font-bold text-[#8B4513]">Angola<span class="text-[#B8860B]">Premium</span></span>
+    <span class="text-xl font-bold text-[#8B4513]">PRATOSTIPICOS<span class="text-[#B8860B]"> <i class="fas fa-utensils text-[#b8860b] mr-2"></i>ED&ISA</span></span>
     <div class="hidden md:flex gap-6 text-sm font-semibold uppercase tracking-wider">
       <a href="#menu" class="hover:text-[#B8860B] transition">Menu</a>
       <a href="#combos" class="hover:text-[#B8860B] transition">Combos</a>
@@ -89,7 +89,7 @@ src="https://www.facebook.com/tr?id=1251687887065006&ev=PageView&noscript=1"
           <h3 class="text-xl font-bold text-gray-800">Hambúrguer à Moda Angolana</h3>
           <p class="text-sm text-gray-500 mt-2 leading-relaxed">Sabor africano marcante com um toque de modernidade urbana.</p>
           <div class="mt-5 flex items-center justify-between">
-            <span class="text-2xl font-black text-[#B8860B]">R$ 40,00</span>
+            <span class="text-2xl font-black text-[#B8860B]">R$ 45,00</span>
             <button onclick="openModal('Hambúrguer à Moda Angolana')" class="bg-[#8B4513] text-white px-5 py-2 rounded-lg font-bold hover:bg-[#B8860B] transition-colors">Pedir</button>
           </div>
         </div>
@@ -351,6 +351,19 @@ src="https://www.facebook.com/tr?id=1251687887065006&ev=PageView&noscript=1"
     window.open(`https://api.whatsapp.com/send?phone=${phone}&text=${msg}`, "_blank");
   }
 
+  function trackEvent(eventName){
+
+fetch("/api/track",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+eventName:eventName
+})
+})
+
+}
   function sendCustomOrder() {
     const checkboxes = document.querySelectorAll('.item-checkbox:checked');
     let itens = Array.from(checkboxes).map(cb => cb.value);
