@@ -357,9 +357,11 @@ src="https://www.facebook.com/tr?id=1251687887065006&ev=PageView&noscript=1"
 
  function trackEvent(eventName){
 
-// pixel normal
+const eventId = Date.now().toString();
+
+// Pixel browser
 if(typeof fbq !== "undefined"){
-fbq('track', eventName);
+fbq('track', eventName, {}, {eventID: eventId});
 }
 
 // enviar para conversions api
@@ -370,6 +372,7 @@ headers:{
 },
 body:JSON.stringify({
 eventName:eventName,
+eventId:eventId,
 url:window.location.href
 })
 })
