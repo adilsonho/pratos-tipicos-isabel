@@ -16,10 +16,11 @@ export default async function handler(req, res) {
         event_time: Math.floor(Date.now() / 1000),
         event_id: body.eventId,
         action_source: "website",
-        event_source_url: body.url || "",
+        event_source_url: body.url,
         user_data: {}
       }
-    ]
+    ],
+    test_event_code: "TEST47051"
   };
 
   try {
